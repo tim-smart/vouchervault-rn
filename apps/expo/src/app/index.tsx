@@ -1,142 +1,85 @@
-import React from "react";
-import { Button, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Link, Stack } from "expo-router";
-import { FlashList } from "@shopify/flash-list";
+import React, { Suspense, useCallback } from "react"
+import { Button, Text, View } from "react-native"
+import { TouchableOpacity } from "react-native-gesture-handler"
+import { SafeAreaView } from "react-native-safe-area-context"
+import { Link } from "expo-router"
+import type { RxRef } from "@effect-rx/rx-react"
+import {
+  useRefreshRx,
+  useRxRef,
+  useRxSuspenseSuccess,
+  useSetRx,
+} from "@effect-rx/rx-react"
+import type { ListRenderItemInfo } from "@shopify/flash-list"
+import { FlashList } from "@shopify/flash-list"
 
-import { api } from "~/utils/api";
-import type { RouterOutputs } from "~/utils/api";
+import type { Todo } from "@acme/todos"
 
-function PostCard(props: {
-  post: RouterOutputs["post"]["all"][number];
-  onDelete: () => void;
-}) {
-  return (
-    <View className="flex flex-row rounded-lg bg-white/10 p-4">
-      <View className="flex-grow">
-        <Link
-          asChild
-          href={{
-            pathname: "/post/[id]",
-            params: { id: props.post.id },
-          }}
-        >
-          <TouchableOpacity>
-            <Text className="text-xl font-semibold text-pink-400">
-              {props.post.title}
-            </Text>
-            <Text className="mt-2 text-white">{props.post.content}</Text>
-          </TouchableOpacity>
-        </Link>
-      </View>
-      <TouchableOpacity onPress={props.onDelete}>
-        <Text className="font-bold uppercase text-pink-400">Delete</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
+import * as Todos from "~/Todos/rx"
 
-function CreatePost() {
-  const utils = api.useContext();
-
-  const [title, setTitle] = React.useState("");
-  const [content, setContent] = React.useState("");
-
-  const { mutate, error } = api.post.create.useMutation({
-    async onSuccess() {
-      setTitle("");
-      setContent("");
-      await utils.post.all.invalidate();
-    },
-  });
-
-  return (
-    <View className="mt-4">
-      <TextInput
-        className="mb-2 rounded bg-white/10 p-2 text-white"
-        placeholderTextColor="rgba(255, 255, 255, 0.5)"
-        value={title}
-        onChangeText={setTitle}
-        placeholder="Title"
-      />
-      {error?.data?.zodError?.fieldErrors.title && (
-        <Text className="mb-2 text-red-500">
-          {error.data.zodError.fieldErrors.title}
-        </Text>
-      )}
-      <TextInput
-        className="mb-2 rounded bg-white/10 p-2 text-white"
-        placeholderTextColor="rgba(255, 255, 255, 0.5)"
-        value={content}
-        onChangeText={setContent}
-        placeholder="Content"
-      />
-      {error?.data?.zodError?.fieldErrors.content && (
-        <Text className="mb-2 text-red-500">
-          {error.data.zodError.fieldErrors.content}
-        </Text>
-      )}
-      <TouchableOpacity
-        className="rounded bg-pink-400 p-2"
-        onPress={() => {
-          mutate({
-            title,
-            content,
-          });
-        }}
-      >
-        <Text className="font-semibold text-white">Publish post</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
-
-const Index = () => {
-  const utils = api.useContext();
-
-  const postQuery = api.post.all.useQuery();
-
-  const deletePostMutation = api.post.delete.useMutation({
-    onSettled: () => utils.post.all.invalidate(),
-  });
-
+export default function Index() {
   return (
     <SafeAreaView className="bg-[#1F104A]">
-      {/* Changes page title visible on the header */}
-      <Stack.Screen options={{ title: "Home Page" }} />
       <View className="h-full w-full p-4">
         <Text className="mx-auto pb-2 text-5xl font-bold text-white">
           Create <Text className="text-pink-400">T3</Text> Turbo
         </Text>
+        <Link href="/about">About</Link>
 
-        <Button
-          onPress={() => void utils.post.all.invalidate()}
-          title="Refresh posts"
-          color={"#f472b6"}
-        />
+        <RefreshButton />
 
-        <View className="py-2">
-          <Text className="font-semibold italic text-white">
-            Press on a post
-          </Text>
-        </View>
-
-        <FlashList
-          data={postQuery.data}
-          estimatedItemSize={20}
-          ItemSeparatorComponent={() => <View className="h-2" />}
-          renderItem={(p) => (
-            <PostCard
-              post={p.item}
-              onDelete={() => deletePostMutation.mutate(p.item.id)}
-            />
-          )}
-        />
-
-        <CreatePost />
+        <Suspense fallback={<Text>Loading...</Text>}>
+          <TodoList />
+        </Suspense>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
-export default Index;
+function TodoList() {
+  const result = useRxSuspenseSuccess(Todos.stream)
+  const pull = useSetRx(Todos.stream)
+  return (
+    <FlashList
+      data={result.value.items}
+      estimatedItemSize={60}
+      ItemSeparatorComponent={() => <View className="h-2" />}
+      onEndReachedThreshold={0.8}
+      onEndReached={() => pull()}
+      keyExtractor={_ => _.value.id.toString()}
+      renderItem={renderTodo}
+    />
+  )
+}
+
+function renderTodo(_: ListRenderItemInfo<RxRef.RxRef<Todo>>) {
+  return <TodoCard todoRef={_.item} />
+}
+
+function RefreshButton() {
+  const refresh = useRefreshRx(Todos.stream)
+  return <Button title="Refresh" color={"#f472b6"} onPress={() => refresh()} />
+}
+
+function TodoCard(props: { readonly todoRef: RxRef.RxRef<Todo> }) {
+  const todo = useRxRef(props.todoRef)
+  const toggle = useCallback(() => {
+    props.todoRef.update(_ => ({ ..._, completed: !_.completed }))
+  }, [props.todoRef])
+  return (
+    <View className="flex flex-row rounded-lg bg-white/10 p-4">
+      <View className="flex-grow">
+        <TouchableOpacity>
+          <Text className="text-xl font-semibold text-pink-400">
+            {todo.title}
+          </Text>
+        </TouchableOpacity>
+      </View>
+      <TouchableOpacity onPress={toggle}>
+        <Text className="font-bold uppercase text-pink-400">
+          {todo.completed ? "Complete" : "Incomplete"}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  )
+}
