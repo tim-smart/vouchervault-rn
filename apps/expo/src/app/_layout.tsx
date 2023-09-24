@@ -1,18 +1,33 @@
-import React from "react";
-import { Stack } from "expo-router";
-import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "react-native"
+import { Stack, Tabs } from "expo-router"
+import { ThemeProvider } from "@react-navigation/native"
 
-export function RootLayout() {
+import * as Theme from "~/shared/Theme"
+
+export const unstable_settings = {
+  initialRouteName: "(home)",
+}
+
+export default function RootLayout() {
+  const colorScheme = useColorScheme()
+
   return (
-    <>
-      <Stack
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: "#f472b6",
-          },
-        }}
-      />
-      <StatusBar style="light" />
-    </>
-  );
+    <ThemeProvider value={colorScheme === "dark" ? Theme.Dark : Theme.Light}>
+      <Tabs screenOptions={{ headerShown: false }}>
+        <Tabs.Screen
+          name="(home)"
+          options={{
+            title: "Vouchers",
+          }}
+        />
+        <Tabs.Screen
+          name="settings"
+          options={{
+            title: "Settings",
+            headerShown: true,
+          }}
+        />
+      </Tabs>
+    </ThemeProvider>
+  )
 }

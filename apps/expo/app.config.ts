@@ -1,34 +1,28 @@
 import type { ExpoConfig } from "@expo/config"
 
 const defineConfig = (): ExpoConfig => ({
-  name: "expo",
-  slug: "expo",
-  scheme: "expo",
+  name: "Voucher Vault",
+  slug: "vouchervault",
+  scheme: "vouchervault",
   version: "1.0.0",
   orientation: "portrait",
   icon: "./assets/icon.png",
-  userInterfaceStyle: "light",
-  splash: {
-    image: "./assets/icon.png",
-    resizeMode: "contain",
-    backgroundColor: "#1F104A",
-  },
+  userInterfaceStyle: "automatic",
   updates: {
     fallbackToCacheTimeout: 0,
   },
   assetBundlePatterns: ["**/*"],
   ios: {
-    bundleIdentifier: "your.bundle.identifier",
+    bundleIdentifier: "co.timsmart.vouchervault",
     supportsTablet: true,
   },
   android: {
-    package: "your.bundle.identifier",
+    package: "co.timsmart.vouchervault",
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#1F104A",
     },
   },
-  // jsEngine: "jsc",
   // extra: {
   //   eas: {
   //     projectId: "your-eas-project-id",

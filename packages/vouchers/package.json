@@ -1,5 +1,5 @@
 {
-  "name": "@acme/todos",
+  "name": "@vv/vouchers",
   "private": true,
   "version": "0.1.0",
   "exports": {
@@ -20,21 +20,21 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@effect/platform-browser": "^0.5.0",
     "@effect/schema": "^0.36.5",
+    "@sqlfx/sqlite": "^0.19.6",
     "effect": "^2.0.0-next.34"
   },
   "devDependencies": {
-    "@acme/eslint-config": "0.2.0",
-    "@acme/prettier-config": "^0.1.0",
-    "@acme/tsconfig": "^0.1.0",
-    "eslint": "^8.49.0",
+    "@vv/eslint-config": "0.2.0",
+    "@vv/prettier-config": "^0.1.0",
+    "@vv/tsconfig": "^0.1.0",
+    "eslint": "^8.50.0",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {
     "extends": [
-      "@acme/eslint-config/base"
+      "@vv/eslint-config/base"
     ]
   },
-  "prettier": "@acme/prettier-config"
+  "prettier": "@vv/prettier-config"
 }
