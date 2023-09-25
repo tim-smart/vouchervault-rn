@@ -1,6 +1,6 @@
 import { Rx } from "@effect-rx/rx-react"
-import * as Sql from "@sqlfx/sqlite/expo"
 import * as Migrator from "@sqlfx/sqlite/Migrator"
+import * as Sql from "@sqlfx/sqlite/react-native"
 import { Layer } from "effect"
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -8,7 +8,7 @@ import { Layer } from "effect"
 import * as migrations from "./Sql/migrations/*"
 
 const SqlLive = Sql.makeLayer({
-  database: "vouchervault.db",
+  filename: "vouchervault.db",
   transformQueryNames: Sql.transform.fromCamel,
   transformResultNames: Sql.transform.toCamel,
 })

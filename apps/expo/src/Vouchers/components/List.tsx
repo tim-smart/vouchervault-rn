@@ -1,5 +1,5 @@
 import { Button, View } from "react-native"
-import { useRxSet, useRxSuspenseSuccess } from "@effect-rx/rx-react"
+import { useRxSet, useRxValue } from "@effect-rx/rx-react"
 import type { ListRenderItemInfo } from "@shopify/flash-list"
 import { FlashList } from "@shopify/flash-list"
 import { Option } from "effect"
@@ -14,12 +14,13 @@ import {
 } from "~/Vouchers/Rx"
 
 export function VouchersList({ topPadding }: { topPadding: number }) {
-  const vouchers = useRxSuspenseSuccess(vouchersRx)
+  const result = useRxValue(vouchersRx)
+  const vouchers = result._tag === "Success" ? result.value : []
   return (
     <FlashList
       ListHeaderComponent={() => <Header topPadding={topPadding} />}
       estimatedItemSize={100}
-      data={vouchers.value}
+      data={vouchers}
       renderItem={renderItem}
     />
   )

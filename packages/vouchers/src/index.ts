@@ -37,13 +37,16 @@ export type VoucherUpdate = Schema.Schema.To<typeof VoucherUpdate>
 const make = Effect.gen(function* (_) {
   const sql = yield* _(Sql.tag)
 
-  const create = sql.singleSchema(
-    VoucherCreate,
-    Voucher,
-    voucher => sql`INSERT INTO vouchers ${sql(voucher)} RETURNING *`,
+  const create = flow(
+    sql.singleSchema(
+      VoucherCreate,
+      Voucher,
+      voucher => sql`INSERT INTO vouchers ${sql(voucher)} RETURNING *`,
+    ),
+    Effect.withSpan("Vouchers.create"),
   )
 
-  const update = sql.singleSchema(
+  const update_ = sql.singleSchema(
     VoucherUpdate,
     Voucher,
     voucher => sql`
@@ -53,29 +56,36 @@ const make = Effect.gen(function* (_) {
       RETURNING *
     `,
   )
+  const update = (_: VoucherUpdate) =>
+    update_(_).pipe(
+      Effect.withSpan("Vouchers.update", { attributes: { id: _.id } }),
+    )
 
   const remove = (id: VoucherId) =>
-    sql`DELETE FROM vouchers WHERE id = ${id}`.pipe(Effect.asUnit)
+    sql`DELETE FROM vouchers WHERE id = ${id}`.pipe(
+      Effect.asUnit,
+      Effect.withSpan("Vouchers.remove", { attributes: { id } }),
+    )
 
-  const all = sql.schema(
-    Schema.void,
+  const all = sql
+    .schema(Schema.void, Voucher, () => sql`SELECT * FROM vouchers`)()
+    .pipe(Effect.withSpan("Vouchers.all"))
+
+  const find_ = sql.singleSchemaOption(
+    VoucherId,
     Voucher,
-    () => sql`SELECT * FROM vouchers`,
-  )()
-
-  const find = flow(
-    sql.singleSchemaOption(
-      VoucherId,
-      Voucher,
-      id => sql`SELECT * FROM vouchers WHERE id = ${id}`,
-    ),
-    Effect.flatten,
+    id => sql`SELECT * FROM vouchers WHERE id = ${id}`,
   )
+  const find = (id: VoucherId) =>
+    find_(id).pipe(
+      Effect.flatten,
+      Effect.withSpan("Vouchers.find", { attributes: { id } }),
+    )
 
   const clear = Effect.all([
     sql`DELETE FROM vouchers`,
     sql`DELETE FROM sqlite_sequence WHERE name = 'vouchers'`,
-  ])
+  ]).pipe(Effect.withSpan("Vouchers.clear"))
 
   return { all, find, create, update, remove, clear } as const
 })

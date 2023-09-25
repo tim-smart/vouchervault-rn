@@ -7,6 +7,9 @@
       "node": "18.16.1",
       "ios": {
         "resourceClass": "m-medium"
+      },
+      "env": {
+        "QUICK_SQLITE_USE_PHONE_VERSION": "1"
       }
     },
     "development": {

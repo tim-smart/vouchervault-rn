@@ -26,7 +26,11 @@ export const voucherByIdRx = Rx.family((id: VoucherId) =>
 )
 
 export const createVoucherRx = Rx.effectFn(
-  (_: VoucherCreate, get) => Effect.zipLeft(create(_), get.refresh(vouchersRx)),
+  (_: VoucherCreate, get) =>
+    create(_).pipe(
+      Effect.zipLeft(get.refresh(vouchersRx)),
+      Effect.tapErrorCause(Effect.logError),
+    ),
   { runtime },
 )
 
@@ -35,17 +39,25 @@ export const updateVoucherRx = Rx.effectFn(
     update(_).pipe(
       Effect.zipLeft(get.refresh(voucherByIdRx(_.id))),
       Effect.zipLeft(get.refresh(vouchersRx)),
+      Effect.tapErrorCause(Effect.logError),
     ),
   { runtime },
 )
 
 export const removeVoucherRx = Rx.effectFn(
   (_: VoucherId, get) =>
-    remove(_).pipe(Effect.zipLeft(get.refresh(vouchersRx))),
+    remove(_).pipe(
+      Effect.zipLeft(get.refresh(vouchersRx)),
+      Effect.tapErrorCause(Effect.logError),
+    ),
   { runtime },
 )
 
 export const clearVouchersRx = Rx.effectFn(
-  (_: void, get) => Effect.zipLeft(clear, get.refresh(vouchersRx)),
+  (_: void, get) =>
+    clear.pipe(
+      Effect.zipLeft(get.refresh(vouchersRx)),
+      Effect.tapErrorCause(Effect.logError),
+    ),
   { runtime },
 )
