@@ -1,5 +1,5 @@
 import { useColorScheme } from "react-native"
-import { Stack, Tabs } from "expo-router"
+import { Tabs } from "expo-router"
 import { ThemeProvider } from "@react-navigation/native"
 
 import * as Theme from "~/shared/Theme"

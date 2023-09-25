@@ -11,7 +11,7 @@
   },
   "include": [
     "expo-plugins",
-    "src",
+    "src/**/*",
     "*.ts",
     "index.tsx",
     "*.js",

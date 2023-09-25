@@ -2,7 +2,7 @@
   "name": "@vv/expo",
   "version": "0.1.0",
   "private": true,
-  "main": "expo-router/entry",
+  "main": "index.tsx",
   "scripts": {
     "clean": "git clean -xdf .expo .turbo node_modules",
     "dev": "expo start --ios",
@@ -15,12 +15,13 @@
     "ios": "expo run:ios"
   },
   "dependencies": {
-    "@effect-rx/rx-react": "^0.1.32",
+    "@effect-rx/rx-react": "^0.2.5",
     "@expo/browser-polyfill": "^1.0.0",
     "@expo/metro-config": "^0.10.7",
+    "@react-navigation/elements": "^1.3.18",
     "@react-navigation/native": "^6.1.7",
     "@shopify/flash-list": "^1.4.3",
-    "@sqlfx/sqlite": "^0.19.6",
+    "@sqlfx/sqlite": "^0.19.8",
     "@vv/vouchers": "*",
     "effect": "^2.0.0-next.34",
     "expo": "^49.0.11",
@@ -28,7 +29,7 @@
     "expo-linking": "~5.0.2",
     "expo-router": "2.0.8",
     "expo-splash-screen": "~0.20.5",
-    "expo-sqlite": "^11.3.3",
+    "expo-sqlite": "^11.6.0",
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
     "nativewind": "^2.0.11",

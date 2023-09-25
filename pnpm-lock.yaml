@@ -13,7 +13,7 @@ importers:
         version: 0.21.0
       '@turbo/gen':
         specifier: ^1.10.14
-        version: 1.10.14(@types/node@20.6.4)(typescript@5.2.2)
+        version: 1.10.14(@types/node@20.6.5)(typescript@5.2.2)
       '@vv/prettier-config':
         specifier: ^0.1.0
         version: link:tooling/prettier
@@ -30,14 +30,17 @@ importers:
   apps/expo:
     dependencies:
       '@effect-rx/rx-react':
-        specifier: ^0.1.32
-        version: 0.1.32(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0)
+        specifier: ^0.2.5
+        version: 0.2.5(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0)
       '@expo/browser-polyfill':
         specifier: ^1.0.0
         version: 1.0.0(expo-asset@8.10.1)(expo-file-system@13.2.1)(react-native@0.72.4)(react@18.2.0)
       '@expo/metro-config':
         specifier: ^0.10.7
         version: 0.10.7
+      '@react-navigation/elements':
+        specifier: ^1.3.18
+        version: 1.3.18(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0)
       '@react-navigation/native':
         specifier: ^6.1.7
         version: 6.1.7(react-native@0.72.4)(react@18.2.0)
@@ -45,8 +48,8 @@ importers:
         specifier: ^1.4.3
         version: 1.4.3(@babel/runtime@7.22.15)(react-native@0.72.4)(react@18.2.0)
       '@sqlfx/sqlite':
-        specifier: ^0.19.6
-        version: 0.19.6(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)(expo-sqlite@11.3.3)
+        specifier: ^0.19.8
+        version: 0.19.8(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)(expo-sqlite@11.6.0)
       '@vv/vouchers':
         specifier: '*'
         version: link:../../packages/vouchers
@@ -69,8 +72,8 @@ importers:
         specifier: ~0.20.5
         version: 0.20.5(expo-modules-autolinking@1.5.1)(expo@49.0.11)
       expo-sqlite:
-        specifier: ^11.3.3
-        version: 11.3.3(expo@49.0.11)
+        specifier: ^11.6.0
+        version: 11.6.0(expo@49.0.11)
       expo-status-bar:
         specifier: ~1.6.0
         version: 1.6.0
@@ -148,8 +151,8 @@ importers:
         specifier: ^0.36.5
         version: 0.36.5(@effect/data@0.18.6)(@effect/io@0.40.3)
       '@sqlfx/sqlite':
-        specifier: ^0.19.6
-        version: 0.19.6(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)(expo-sqlite@11.3.3)
+        specifier: ^0.19.8
+        version: 0.19.8(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)(expo-sqlite@11.6.0)
       effect:
         specifier: ^2.0.0-next.34
         version: 2.0.0-next.34(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/match@0.35.2)(@effect/stm@0.24.0)(@effect/stream@0.36.1)
@@ -1772,23 +1775,23 @@ packages:
       '@jridgewell/trace-mapping': 0.3.9
     dev: false
 
-  /@effect-rx/rx-react@0.1.32(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0):
-    resolution: {integrity: sha512-SxQD1yOj2t8E+JrRvdEWUu2hGNMN5gpKE/hyPx6YGXkKPEm9Zwzf1blMxkNlXIYrFgOQoopqEdxDpQZyqdrVBw==}
+  /@effect-rx/rx-react@0.2.5(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1)(react@18.2.0):
+    resolution: {integrity: sha512-+fnGKt9g4t+OJSENl+h6KmOBwdoVqFuOvVgfvH4DuOIjvYPPl8UXQOH0D+cV2Cs/n+tIowKsgXdZoG9OXPNJ2A==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
       '@effect/stream': ^0.36.0
       react: ^18
     dependencies:
-      '@effect-rx/rx': 0.1.25(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1)
+      '@effect-rx/rx': 0.2.4(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1)
       '@effect/data': 0.18.6
       '@effect/io': 0.40.3(@effect/data@0.18.6)
       '@effect/stream': 0.36.1(@effect/data@0.18.6)(@effect/io@0.40.3)
       react: 18.2.0
     dev: false
 
-  /@effect-rx/rx@0.1.25(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1):
-    resolution: {integrity: sha512-H4SskCE0lNnS4lRoKMnI0n66a3zsGSaUceUE6f2XG17v/ydHkFXkXoAFFlt2ZgPsFUBFUl+3slHK/i0bRuE9jA==}
+  /@effect-rx/rx@0.2.4(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/stream@0.36.1):
+    resolution: {integrity: sha512-ySUYFAnoSW5l5VZiU1xhcLBBkI5IQGw10ETD6ISaZ0ni38AbDce52lrf1nwbbYpdLW3iYRJQBjnk9vsGbKb+lA==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
@@ -2441,7 +2444,7 @@ packages:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.4
       '@types/istanbul-reports': 3.0.1
-      '@types/node': 20.6.4
+      '@types/node': 20.6.5
       '@types/yargs': 17.0.24
       chalk: 4.1.2
     dev: false
@@ -2847,7 +2850,7 @@ packages:
       react-native-safe-area-context: '>= 3.0.0'
       react-native-screens: '>= 3.0.0'
     dependencies:
-      '@react-navigation/elements': 1.3.17(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0)
+      '@react-navigation/elements': 1.3.18(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0)
       '@react-navigation/native': 6.1.7(react-native@0.72.4)(react@18.2.0)
       color: 4.2.3
       react: 18.2.0
@@ -2871,8 +2874,8 @@ packages:
       use-latest-callback: 0.1.6(react@18.2.0)
     dev: false
 
-  /@react-navigation/elements@1.3.17(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0):
-    resolution: {integrity: sha512-sui8AzHm6TxeEvWT/NEXlz3egYvCUog4tlXA4Xlb2Vxvy3purVXDq/XsM56lJl344U5Aj/jDzkVanOTMWyk4UA==}
+  /@react-navigation/elements@1.3.18(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0):
+    resolution: {integrity: sha512-/0hwnJkrr415yP0Hf4PjUKgGyfshrvNUKFXN85Mrt1gY49hy9IwxZgrrxlh0THXkPeq8q4VWw44eHDfAcQf20Q==}
     peerDependencies:
       '@react-navigation/native': ^6.0.0
       react: '*'
@@ -2894,7 +2897,7 @@ packages:
       react-native-safe-area-context: '>= 3.0.0'
       react-native-screens: '>= 3.0.0'
     dependencies:
-      '@react-navigation/elements': 1.3.17(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0)
+      '@react-navigation/elements': 1.3.18(@react-navigation/native@6.1.7)(react-native-safe-area-context@4.6.3)(react-native@0.72.4)(react@18.2.0)
       '@react-navigation/native': 6.1.7(react-native@0.72.4)(react@18.2.0)
       react: 18.2.0
       react-native: 0.72.4(@babel/core@7.22.20)(@babel/preset-env@7.22.20)(react@18.2.0)
@@ -2983,8 +2986,8 @@ packages:
       '@sinonjs/commons': 2.0.0
     dev: false
 
-  /@sqlfx/sql@0.19.4(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1):
-    resolution: {integrity: sha512-q7pY7WL1LIs4A2pCQig6fAtZOZRhzbrCCoghoiBYlVrDnwT6NNOkSqidDfisv79bHrmYcIiRv4UCXi4pQ4rjPg==}
+  /@sqlfx/sql@0.19.6(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1):
+    resolution: {integrity: sha512-5T/5Vr7oWY5wXrfa2uItoHOngTRF20pSbNuuESM+VQN0xHrKCLpHGBF3bClhCxe36+0YGbOpZ7o9NRyVc507+Q==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
@@ -2997,8 +3000,8 @@ packages:
       '@effect/stream': 0.36.1(@effect/data@0.18.6)(@effect/io@0.40.3)
     dev: false
 
-  /@sqlfx/sqlite@0.19.6(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)(expo-sqlite@11.3.3):
-    resolution: {integrity: sha512-eUxptCcJn3FlcyzLjBblvphzdFBgKOrt9G/GvRXxRmByt1YCDM7wlxHBwmgMGScnWUM5fL8kEpP2Cf56vQ7wdQ==}
+  /@sqlfx/sqlite@0.19.8(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)(expo-sqlite@11.6.0):
+    resolution: {integrity: sha512-UWArOAorj/Ne/mLDnjwa4oWxxZZs0eTHf6L0pSMhCs7wPqu5RQlUBpHxxaGDMM/wkINOJf5GG39v5SiaALAPkw==}
     peerDependencies:
       '@effect/data': ^0.18.5
       '@effect/io': ^0.40.1
@@ -3018,8 +3021,8 @@ packages:
     dependencies:
       '@effect/data': 0.18.6
       '@effect/io': 0.40.3(@effect/data@0.18.6)
-      '@sqlfx/sql': 0.19.4(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)
-      expo-sqlite: 11.3.3(expo@49.0.11)
+      '@sqlfx/sql': 0.19.6(@effect/data@0.18.6)(@effect/io@0.40.3)(@effect/schema@0.36.5)(@effect/stream@0.36.1)
+      expo-sqlite: 11.6.0(expo@49.0.11)
     transitivePeerDependencies:
       - '@effect/schema'
       - '@effect/stream'
@@ -3052,7 +3055,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: false
 
-  /@turbo/gen@1.10.14(@types/node@20.6.4)(typescript@5.2.2):
+  /@turbo/gen@1.10.14(@types/node@20.6.5)(typescript@5.2.2):
     resolution: {integrity: sha512-g7ecPx0GCCTpnbH53blBGNk6pP4LhcWiTtR0kEprGkXpiHqjYDpOydz4JFoz9IC+Hj1Z28/+M7T/GfwJAjf0FQ==}
     dependencies:
       '@turbo/workspaces': 1.10.14
@@ -3063,7 +3066,7 @@ packages:
       minimatch: 9.0.3
       node-plop: 0.26.3
       proxy-agent: 6.3.0
-      ts-node: 10.9.1(@types/node@20.6.4)(typescript@5.2.2)
+      ts-node: 10.9.1(@types/node@20.6.5)(typescript@5.2.2)
       update-check: 1.5.4
       validate-npm-package-name: 5.0.0
     transitivePeerDependencies:
@@ -3191,8 +3194,8 @@ packages:
     resolution: {integrity: sha512-/4QOuy3ZpV7Ya1GTRz5CYSz3DgkKpyUptXuQ5PPce7uuyJAOR7r9FhkmxJfvcNUXyklbC63a+YvB3jxy7s9ngw==}
     dev: false
 
-  /@types/node@20.6.4:
-    resolution: {integrity: sha512-nU6d9MPY0NBUMiE/nXd2IIoC4OLvsLpwAjheoAeuzgvDZA1Cb10QYg+91AF6zQiKWRN5i1m07x6sMe0niBznoQ==}
+  /@types/node@20.6.5:
+    resolution: {integrity: sha512-2qGq5LAOTh9izcc0+F+dToFigBWiK1phKPt7rNhOqJSr35y8rlIBjDwGtFSgAI6MGIhjwOVNSQZVdJsZJ2uR1w==}
     dev: false
 
   /@types/prop-types@15.7.5:
@@ -5555,8 +5558,8 @@ packages:
       - supports-color
     dev: false
 
-  /expo-sqlite@11.3.3(expo@49.0.11):
-    resolution: {integrity: sha512-73n+mhwi5mO28oVVrDGYcjy28XeUjNtpXVPtEmc+sr/NQ0hKlkIf2PD3/gKsyNuI8O/twNCZxsAQdM32yHGr8A==}
+  /expo-sqlite@11.6.0(expo@49.0.11):
+    resolution: {integrity: sha512-R/CmBvY4JYit6e7nJiIplgvg9B5Us95ExmLNxiVsfYjwRqsvKvNlETxX6BpB4FahQleKAZVWOTAzs5o7kst5TA==}
     peerDependencies:
       expo: '*'
     dependencies:
@@ -10471,7 +10474,7 @@ packages:
   /ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  /ts-node@10.9.1(@types/node@20.6.4)(typescript@5.2.2):
+  /ts-node@10.9.1(@types/node@20.6.5)(typescript@5.2.2):
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -10490,7 +10493,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.4
-      '@types/node': 20.6.4
+      '@types/node': 20.6.5
       acorn: 8.10.0
       acorn-walk: 8.2.0
       arg: 4.1.0

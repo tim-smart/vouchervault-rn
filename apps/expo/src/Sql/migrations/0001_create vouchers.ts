@@ -7,6 +7,7 @@ export default Effect.flatMap(
     CREATE TABLE IF NOT EXISTS vouchers (
       id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
       name VARCHAR(255) NOT NULL,
+      balance INTEGER,
       created_at datetime NOT NULL DEFAULT current_timestamp,
       updated_at datetime NOT NULL DEFAULT current_timestamp
     );

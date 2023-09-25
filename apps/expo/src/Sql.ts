@@ -18,7 +18,4 @@ const MigratorLive = Migrator.makeLayer({
   loader: Migrator.fromBabelGlob(migrations),
 })
 
-export const sqlRuntime = Rx.runtime(
-  Layer.provideMerge(SqlLive, MigratorLive),
-  { autoDispose: true },
-)
+export const sqlRuntime = Rx.runtime(Layer.provideMerge(SqlLive, MigratorLive))
