@@ -6,10 +6,12 @@ export default function HomeLayout() {
   return (
     <Stack
       screenOptions={{
-        headerLargeTitle: true,
-        headerLargeStyle: {
-          backgroundColor: theme.colors.background,
+        headerStyle: {
+          backgroundColor: "rgba(255, 255, 255, 0.01)",
         },
+        headerBlurEffect: "regular",
+        headerLargeTitle: true,
+        headerLargeStyle: { backgroundColor: theme.colors.background },
         headerLargeTitleShadowVisible: false,
       }}
     >

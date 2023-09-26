@@ -11,6 +11,8 @@ PODS:
     - ExpoModulesCore
   - Expo (49.0.11):
     - ExpoModulesCore
+  - ExpoBlur (12.4.1):
+    - ExpoModulesCore
   - ExpoHead (0.0.14):
     - ExpoModulesCore
   - ExpoKeepAwake (12.3.0):
@@ -21,9 +23,6 @@ PODS:
     - React-NativeModulesApple
     - React-RCTAppDelegate
     - ReactCommon/turbomodule/core
-  - ExpoSQLite (11.6.0):
-    - ExpoModulesCore
-    - sqlite3 (= 3.39.2)
   - ExpoSystemUI (2.4.0):
     - ExpoModulesCore
   - EXSplashScreen (0.20.5):
@@ -472,9 +471,6 @@ PODS:
     - React-Core
     - React-RCTImage
   - SocketRocket (0.6.1)
-  - sqlite3 (3.39.2):
-    - sqlite3/common (= 3.39.2)
-  - sqlite3/common (3.39.2)
   - Yoga (1.14.0)
 
 DEPENDENCIES:
@@ -485,10 +481,10 @@ DEPENDENCIES:
   - EXFileSystem (from `../../../node_modules/expo-file-system/ios`)
   - EXFont (from `../../../node_modules/expo-font/ios`)
   - Expo (from `../../../node_modules/expo`)
+  - ExpoBlur (from `../../../node_modules/expo-blur/ios`)
   - ExpoHead (from `../../../node_modules/expo-head/ios`)
   - ExpoKeepAwake (from `../../../node_modules/expo-keep-awake/ios`)
   - ExpoModulesCore (from `../../../node_modules/expo-modules-core`)
-  - ExpoSQLite (from `../../../node_modules/expo-sqlite/ios`)
   - ExpoSystemUI (from `../../../node_modules/expo-system-ui/ios`)
   - EXSplashScreen (from `../../../node_modules/expo-splash-screen/ios`)
   - FBLazyVector (from `../../../node_modules/react-native/Libraries/FBLazyVector`)
@@ -541,7 +537,6 @@ SPEC REPOS:
     - fmt
     - libevent
     - SocketRocket
-    - sqlite3
 
 EXTERNAL SOURCES:
   boost:
@@ -558,14 +553,14 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/expo-font/ios"
   Expo:
     :path: "../../../node_modules/expo"
+  ExpoBlur:
+    :path: "../../../node_modules/expo-blur/ios"
   ExpoHead:
     :path: "../../../node_modules/expo-head/ios"
   ExpoKeepAwake:
     :path: "../../../node_modules/expo-keep-awake/ios"
   ExpoModulesCore:
     :path: "../../../node_modules/expo-modules-core"
-  ExpoSQLite:
-    :path: "../../../node_modules/expo-sqlite/ios"
   ExpoSystemUI:
     :path: "../../../node_modules/expo-system-ui/ios"
   EXSplashScreen:
@@ -664,10 +659,10 @@ SPEC CHECKSUMS:
   EXFileSystem: 2b826a3bf1071a4b80a8457e97124783d1ac860e
   EXFont: 738c44c390953ebcbab075a4848bfbef025fd9ee
   Expo: 8a2d2c235bcbe4f41774562a0635bd74c174858c
+  ExpoBlur: a2c90bdfa4ff9f459cdb0f83191bddf020e3e2db
   ExpoHead: 82eda8e633ca25980d8ec46ba793a3df4e2b16fc
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoModulesCore: 51cb2e7ab4c8da14be3f40b66d54c1781002e99d
-  ExpoSQLite: 64d51a9a529b581d9b2b716c3e0a376f438dba52
   ExpoSystemUI: fa4854e3226e87f86d3383570264c6e4e90bc782
   EXSplashScreen: c0e7f2d4a640f3b875808ed0b88575538daf6d82
   FBLazyVector: 5d4a3b7f411219a45a6d952f77d2c0a6c9989da5
@@ -714,7 +709,6 @@ SPEC CHECKSUMS:
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  sqlite3: d115522c740c457b805c018b0296b5ba003da280
   Yoga: 3efc43e0d48686ce2e8c60f99d4e6bd349aff981
 
 PODFILE CHECKSUM: e2167c1d7b157b3a4ab184cef456d6fa77acb71d

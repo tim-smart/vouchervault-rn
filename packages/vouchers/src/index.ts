@@ -1,6 +1,6 @@
 import * as Schema from "@effect/schema/Schema"
 import * as Sql from "@sqlfx/sqlite/Client"
-import { Context, Effect, flow, identity, Layer } from "effect"
+import { Context, Effect, flow, identity, Layer, Option } from "effect"
 
 export const VoucherId = Schema.number.pipe(Schema.brand("VoucherId"))
 export type VoucherId = Schema.Schema.To<typeof VoucherId>
@@ -11,7 +11,12 @@ export class Voucher extends Schema.Class<Voucher>()({
   balance: Schema.optionFromNullable(Schema.Int),
   createdAt: Schema.Date,
   updatedAt: Schema.Date,
-}) {}
+}) {
+  static readonly empty: VoucherCreate = {
+    name: "",
+    balance: Option.none(),
+  }
+}
 
 const VoucherCreate = Voucher.struct.pipe(
   Schema.omit("id", "createdAt", "updatedAt"),

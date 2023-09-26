@@ -1,4 +1,5 @@
 import { useColorScheme } from "react-native"
+import { BlurView } from "expo-blur"
 import { Tabs } from "expo-router"
 import { ThemeProvider } from "@react-navigation/native"
 
@@ -13,7 +14,14 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === "dark" ? Theme.Dark : Theme.Light}>
-      <Tabs screenOptions={{ headerShown: false }}>
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          headerTransparent: true,
+          tabBarStyle: { position: "absolute" },
+          tabBarBackground: () => <BlurView style={{ flex: 1 }} />,
+        }}
+      >
         <Tabs.Screen
           name="(home)"
           options={{

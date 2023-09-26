@@ -4,7 +4,6 @@ const config = {
     "turbo",
     "eslint:recommended",
     "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked",
     "prettier",
   ],
   env: {
@@ -42,6 +41,6 @@ const config = {
     "pnpm-lock.yaml",
   ],
   reportUnusedDisableDirectives: true,
-};
+}
 
-module.exports = config;
+module.exports = config
