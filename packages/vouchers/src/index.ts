@@ -7,7 +7,7 @@ export type VoucherId = Schema.Schema.To<typeof VoucherId>
 
 export class Voucher extends Schema.Class<Voucher>()({
   id: VoucherId,
-  name: Schema.string,
+  name: Schema.NonEmpty,
   balance: Schema.optionFromNullable(Schema.Int),
   createdAt: Schema.Date,
   updatedAt: Schema.Date,
@@ -18,12 +18,12 @@ export class Voucher extends Schema.Class<Voucher>()({
   }
 }
 
-const VoucherCreate = Voucher.struct.pipe(
+export const VoucherCreate = Voucher.struct.pipe(
   Schema.omit("id", "createdAt", "updatedAt"),
 )
 export type VoucherCreate = Schema.Schema.To<typeof VoucherCreate>
 
-const VoucherUpdate = Schema.transform(
+export const VoucherUpdate = Schema.transform(
   Voucher.struct.pipe(
     Schema.omit("id", "createdAt"),
     Schema.partial,

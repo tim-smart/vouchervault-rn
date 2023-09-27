@@ -8,20 +8,14 @@ import { ReadonlyArray } from "effect"
 
 import type { Setting } from "@vv/settings"
 
-import { useNavBlurView } from "~/app/Shared/hooks/scroll"
 import { settingRx, smartScan } from "~/Settings"
 
 export default function Settings() {
   const paddingTop = useHeaderHeight()
   const paddingBottom = useBottomTabBarHeight()
-  const onScroll = useNavBlurView()
 
   return (
-    <ScrollView
-      style={{ flex: 1, paddingTop, paddingBottom }}
-      onScroll={onScroll}
-      scrollEventThrottle={16}
-    >
+    <ScrollView style={{ flex: 1, paddingTop, paddingBottom }}>
       <View className="h-5" />
       <Suspense>
         <Group>
