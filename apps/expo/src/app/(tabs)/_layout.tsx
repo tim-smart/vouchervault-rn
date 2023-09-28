@@ -1,12 +1,19 @@
-import { useColorScheme } from "react-native"
+import { Platform, useColorScheme } from "react-native"
 import { BlurView } from "expo-blur"
-import { Tabs } from "expo-router"
+import { Stack, Tabs } from "expo-router"
 
 export const unstable_settings = {
   initialRouteName: "(home)",
 }
 
 export default function TabsLayout() {
+  return Platform.select({
+    ios: <IosLayout />,
+    default: <AndroidLayout />,
+  })
+}
+
+function IosLayout() {
   const colorScheme = useColorScheme()
 
   return (
@@ -48,5 +55,25 @@ export default function TabsLayout() {
         }}
       />
     </Tabs>
+  )
+}
+
+function AndroidLayout() {
+  return (
+    <Stack>
+      <Stack.Screen
+        name="(home)"
+        options={{
+          title: "Vouchers",
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="settings"
+        options={{
+          title: "Settings",
+        }}
+      />
+    </Stack>
   )
 }

@@ -39,7 +39,7 @@ import {
   useRxRefBindingIdentity,
 } from "~/Shared/hooks/binding"
 import * as Millis from "~/Shared/Milliunits"
-import { createVoucherRx, updateVoucherRx, voucherByIdRx } from "~/Vouchers/Rx"
+import { createVoucherRx, updateVoucherRx, voucherByIdRx } from "~/Vouchers"
 
 export default function VoucherForm() {
   const params = useLocalSearchParams<SearchParams<"/vouchers/[id]">>()

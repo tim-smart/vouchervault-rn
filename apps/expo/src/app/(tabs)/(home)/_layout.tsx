@@ -1,9 +1,16 @@
-import { TouchableOpacity } from "react-native"
+import { Platform, TouchableOpacity } from "react-native"
 import { Link, Stack } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { useTheme } from "@react-navigation/native"
 
 export default function HomeLayout() {
+  return Platform.select({
+    ios: <IosLayout />,
+    default: <AndroidLayout />,
+  })
+}
+
+function IosLayout() {
   const theme = useTheme()
   return (
     <Stack
@@ -34,6 +41,19 @@ export default function HomeLayout() {
               </TouchableOpacity>
             </Link>
           ),
+        }}
+      />
+    </Stack>
+  )
+}
+
+function AndroidLayout() {
+  return (
+    <Stack>
+      <Stack.Screen
+        name="index"
+        options={{
+          title: "Vouchers",
         }}
       />
     </Stack>
