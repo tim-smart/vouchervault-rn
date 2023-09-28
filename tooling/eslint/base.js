@@ -18,6 +18,7 @@ const config = {
   rules: {
     "turbo/no-undeclared-env-vars": "off",
     "@typescript-eslint/no-empty-interface": "off",
+    "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-unused-vars": [
       "error",
       { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },

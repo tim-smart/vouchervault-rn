@@ -1,4 +1,5 @@
 import { Button, Text, TouchableOpacity, View } from "react-native"
+import { Link } from "expo-router"
 import { useRxSet, useRxValue } from "@effect-rx/rx-react"
 import type { ListRenderItemInfo } from "@shopify/flash-list"
 import { FlashList } from "@shopify/flash-list"
@@ -35,12 +36,14 @@ function Header({ topPadding }: { topPadding: number }) {
 
 function VoucherCard({ voucher }: { voucher: Voucher }) {
   return (
-    <TouchableOpacity
-      style={{ flex: 1 }}
-      className="items-center justify-center rounded-xl px-5 py-4"
-    >
-      <Text>{voucher.name}</Text>
-    </TouchableOpacity>
+    <Link href={`/vouchers/${voucher.id}`} asChild>
+      <TouchableOpacity
+        style={{ flex: 1 }}
+        className="items-center justify-center rounded-xl px-5 py-4"
+      >
+        <Text>{voucher.name}</Text>
+      </TouchableOpacity>
+    </Link>
   )
 }
 

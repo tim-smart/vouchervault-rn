@@ -26,7 +26,11 @@ export default function HomeLayout() {
           headerRight: () => (
             <Link href="/vouchers/new" asChild>
               <TouchableOpacity>
-                <Ionicons name="ios-add-circle" size={30} color="black" />
+                <Ionicons
+                  name="ios-add-circle"
+                  size={30}
+                  color={theme.colors.text}
+                />
               </TouchableOpacity>
             </Link>
           ),

@@ -1,20 +1,43 @@
 import * as Schema from "@effect/schema/Schema"
+import { formatErrors } from "@effect/schema/TreeFormatter"
 import * as Sql from "@sqlfx/sqlite/Client"
-import { Context, Effect, flow, identity, Layer, Option } from "effect"
+import { Console, Context, Effect, flow, identity, Layer, Option } from "effect"
 
 export const VoucherId = Schema.number.pipe(Schema.brand("VoucherId"))
 export type VoucherId = Schema.Schema.To<typeof VoucherId>
 
+export const VoucherColors = [
+  "gray",
+  "blue",
+  "green",
+  "orange",
+  "purple",
+  "red",
+  "yellow",
+] as const
+export const VoucherColor = Schema.literal(...VoucherColors)
+export type VoucherColor = Schema.Schema.To<typeof VoucherColor>
+
 export class Voucher extends Schema.Class<Voucher>()({
   id: VoucherId,
   name: Schema.NonEmpty,
+  code: Schema.NonEmpty,
+  codeType: Schema.NonEmpty,
+  color: VoucherColor,
   balance: Schema.optionFromNullable(Schema.Int),
+  notes: Schema.optionFromNullable(Schema.NonEmpty),
+  expiresAt: Schema.optionFromNullable(Schema.Date),
   createdAt: Schema.Date,
   updatedAt: Schema.Date,
 }) {
   static readonly empty: VoucherCreate = {
     name: "",
+    code: "12345",
+    codeType: "test",
+    color: "gray",
     balance: Option.none(),
+    notes: Option.none(),
+    expiresAt: Option.none(),
   }
 }
 
@@ -33,6 +56,7 @@ export const VoucherUpdate = Schema.transform(
     Schema.omit("id", "createdAt", "updatedAt"),
     Schema.partial,
     Schema.extend(Schema.struct({ id: VoucherId })),
+    Schema.to,
   ),
   identity,
   _ => ({ ..._, updatedAt: new Date() }),
@@ -63,6 +87,9 @@ const make = Effect.gen(function* (_) {
   )
   const update = (_: VoucherUpdate) =>
     update_(_).pipe(
+      Effect.tapErrorTag("SchemaError", _ =>
+        Console.log(formatErrors(_.errors)),
+      ),
       Effect.withSpan("Vouchers.update", { attributes: { id: _.id } }),
     )
 

@@ -32,7 +32,7 @@ export const createVoucherRx = Rx.effectFn(
       Effect.tapErrorCause(Effect.logError),
     ),
   { runtime },
-).pipe(Rx.withLabel("createVoucherRx"))
+)
 
 export const updateVoucherRx = Rx.effectFn(
   (_: VoucherUpdate, get) =>
