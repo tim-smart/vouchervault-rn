@@ -3,6 +3,8 @@ import { Link, Stack } from "expo-router"
 import { Ionicons } from "@expo/vector-icons"
 import { useTheme } from "@react-navigation/native"
 
+import { AndroidAppBar } from "~/Shared/AndroidAppBar"
+
 export default function HomeLayout() {
   return Platform.select({
     ios: <IosLayout />,
@@ -54,6 +56,7 @@ function AndroidLayout() {
         name="index"
         options={{
           title: "Vouchers",
+          header: props => <AndroidAppBar {...props} />,
         }}
       />
     </Stack>

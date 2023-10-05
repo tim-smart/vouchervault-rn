@@ -2,6 +2,8 @@ import { Platform, useColorScheme } from "react-native"
 import { BlurView } from "expo-blur"
 import { Stack, Tabs } from "expo-router"
 
+import { AndroidAppBar } from "~/Shared/AndroidAppBar"
+
 export const unstable_settings = {
   initialRouteName: "(home)",
 }
@@ -60,7 +62,11 @@ function IosLayout() {
 
 function AndroidLayout() {
   return (
-    <Stack>
+    <Stack
+      screenOptions={{
+        header: props => <AndroidAppBar {...props} />,
+      }}
+    >
       <Stack.Screen
         name="(home)"
         options={{

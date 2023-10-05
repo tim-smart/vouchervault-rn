@@ -10,7 +10,7 @@ import {
 } from "react-native"
 import DatePicker from "react-native-date-picker"
 import type { SearchParams } from "expo-router"
-import { router, useLocalSearchParams, useNavigation } from "expo-router"
+import { router, Stack, useLocalSearchParams, useNavigation } from "expo-router"
 import {
   Result,
   RxRef,
@@ -49,15 +49,26 @@ export default function VoucherForm() {
   )
 
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View className="h-5" />
-      <Suspense>
-        {Option.match(id, {
-          onNone: () => <NewForm />,
-          onSome: id => <EditForm id={id} />,
-        })}
-      </Suspense>
-    </ScrollView>
+    <>
+      <Stack.Screen
+        redirect={undefined}
+        options={{
+          title: Option.match(id, {
+            onNone: () => "New Voucher",
+            onSome: () => "Edit Voucher",
+          }),
+        }}
+      />
+      <ScrollView style={{ flex: 1 }}>
+        <View className="h-5" />
+        <Suspense>
+          {Option.match(id, {
+            onNone: () => <NewForm />,
+            onSome: id => <EditForm id={id} />,
+          })}
+        </Suspense>
+      </ScrollView>
+    </>
   )
 }
 
@@ -68,7 +79,6 @@ function NewForm() {
   useEffect(
     function () {
       nav.setOptions({
-        title: "Add Voucher",
         headerRight: () => <SaveButton title="Add" voucherRef={voucherRef} />,
       })
     },
@@ -89,7 +99,6 @@ function EditForm(props: { readonly id: VoucherId }) {
   useEffect(
     function () {
       nav.setOptions({
-        title: "Edit Voucher",
         headerRight: () => <SaveButton title="Save" voucherRef={voucherRef} />,
       })
     },

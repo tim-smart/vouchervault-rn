@@ -1,5 +1,6 @@
 import { Button, Platform, Text, TouchableOpacity, View } from "react-native"
-import { Link } from "expo-router"
+import { FAB } from "react-native-paper"
+import { Link, router } from "expo-router"
 import { useRxSet, useRxValue } from "@effect-rx/rx-react"
 import { useHeaderHeight } from "@react-navigation/elements"
 import type { ListRenderItemInfo } from "@shopify/flash-list"
@@ -18,12 +19,22 @@ export default function Index() {
   const result = useRxValue(vouchersRx)
   const vouchers = result._tag === "Success" ? result.value : []
   return (
-    <FlashList
-      ListHeaderComponent={() => <Header topPadding={topPadding} />}
-      estimatedItemSize={100}
-      data={vouchers}
-      renderItem={renderItem}
-    />
+    <>
+      <FlashList
+        ListHeaderComponent={() => <Header topPadding={topPadding} />}
+        estimatedItemSize={100}
+        data={vouchers}
+        renderItem={renderItem}
+      />
+      {Platform.OS === "android" && (
+        <FAB
+          onPress={() => router.push("/vouchers/new")}
+          className="absolute bottom-5 right-5"
+          label="Add Voucher"
+          icon="plus"
+        />
+      )}
+    </>
   )
 }
 
