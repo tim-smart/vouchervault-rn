@@ -9,8 +9,8 @@ import * as migrations from "./Sql/migrations/*"
 
 const SqlLive = Sql.makeLayer({
   filename: "vouchervault.db",
-  transformQueryNames: Sql.transform.fromCamel,
-  transformResultNames: Sql.transform.toCamel,
+  transformQueryNames: Sql.transform.camelToSnake,
+  transformResultNames: Sql.transform.snakeToCamel,
 })
 
 const MigratorLive = Migrator.makeLayer({

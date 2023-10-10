@@ -1,14 +1,14 @@
 {
-  "name": "@vv/vouchers",
+  "name": "@vv/utils",
   "private": true,
   "version": "0.1.0",
   "exports": {
-    ".": "./index.ts"
+    "./*": "./*.ts"
   },
   "typesVersions": {
     "*": {
       "*": [
-        "src/*"
+        "*"
       ]
     }
   },
@@ -20,8 +20,6 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@effect/schema": "^0.43.0",
-    "@sqlfx/sqlite": "^0.26.0",
     "effect": "2.0.0-next.48"
   },
   "devDependencies": {

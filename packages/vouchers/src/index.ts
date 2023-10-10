@@ -1,7 +1,6 @@
 import * as Schema from "@effect/schema/Schema"
-import { formatErrors } from "@effect/schema/TreeFormatter"
 import * as Sql from "@sqlfx/sqlite/Client"
-import { Console, Context, Effect, flow, identity, Layer, Option } from "effect"
+import { Context, Effect, flow, identity, Layer, Option } from "effect"
 
 export const VoucherId = Schema.number.pipe(Schema.brand("VoucherId"))
 export type VoucherId = Schema.Schema.To<typeof VoucherId>
@@ -70,7 +69,7 @@ const make = Effect.gen(function* (_) {
     sql.singleSchema(
       VoucherCreate,
       Voucher,
-      voucher => sql`INSERT INTO vouchers ${sql(voucher)} RETURNING *`,
+      voucher => sql`INSERT INTO vouchers ${sql.insert(voucher)} RETURNING *`,
     ),
     Effect.withSpan("Vouchers.create"),
   )
@@ -80,16 +79,13 @@ const make = Effect.gen(function* (_) {
     Voucher,
     voucher => sql`
       UPDATE vouchers
-      SET ${sql(voucher, ["id"])}
+      SET ${sql.update(voucher, ["id"])}
       WHERE id = ${voucher.id!}
       RETURNING *
     `,
   )
   const update = (_: VoucherUpdate) =>
     update_(_).pipe(
-      Effect.tapErrorTag("SchemaError", _ =>
-        Console.log(formatErrors(_.errors)),
-      ),
       Effect.withSpan("Vouchers.update", { attributes: { id: _.id } }),
     )
 

@@ -1,14 +1,5 @@
 import React, { Suspense, useCallback, useEffect, useMemo } from "react"
-import type { TextInputProps } from "react-native"
-import {
-  Button,
-  Pressable,
-  ScrollView,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native"
-import DatePicker from "react-native-date-picker"
+import { Button, Platform, ScrollView, View } from "react-native"
 import type { SearchParams } from "expo-router"
 import { router, Stack, useLocalSearchParams, useNavigation } from "expo-router"
 import {
@@ -20,25 +11,12 @@ import {
   useRxValue,
 } from "@effect-rx/rx-react"
 import * as Schema from "@effect/schema/Schema"
-import { Ionicons } from "@expo/vector-icons"
-import { flow, Option, String } from "effect"
-import {
-  HStack,
-  Section,
-  Text,
-  TextField,
-  useUIColor,
-  VStack,
-} from "swiftui-react-native"
+import { Option } from "effect"
 
 import { Voucher, VoucherCreate, VoucherId } from "@vv/vouchers"
 
-import type { Binding } from "~/Shared/hooks/binding"
-import {
-  useRxRefBinding,
-  useRxRefBindingIdentity,
-} from "~/Shared/hooks/binding"
-import * as Millis from "~/Shared/Milliunits"
+import { AndroidForm } from "~/VoucherForm/components/AndroidForm"
+import { IosForm } from "~/VoucherForm/components/IosForm"
 import { createVoucherRx, updateVoucherRx, voucherByIdRx } from "~/Vouchers"
 
 export default function VoucherForm() {
@@ -143,146 +121,14 @@ function SaveButton({
   return <Button title={title} onPress={() => save()} disabled={disabled} />
 }
 
-const emptySpace = " ".repeat(100)
-
 function Form({
   voucherRef,
 }: {
   readonly voucherRef: RxRef.RxRef<VoucherCreate>
 }) {
-  return (
-    <VStack>
-      <Section>
-        <TextField
-          placeholder={`Name${emptySpace}`}
-          autocapitalization="words"
-          autocorrectionDisabled
-          text={useRxRefBindingIdentity(voucherRef, "name")}
-        />
-      </Section>
-
-      <Section>
-        <Label text="Expires">
-          <DatePickerWrap
-            date={useRxRefBindingIdentity(voucherRef, "expiresAt")}
-          />
-        </Label>
-        <Label text="Balance">
-          <NumberField
-            style={{ alignContent: "flex-end" }}
-            placeholder="Amount"
-            text={useRxRefBinding(
-              voucherRef,
-              "balance",
-              Millis.toStringOption,
-              Millis.fromString,
-            )}
-          />
-        </Label>
-      </Section>
-      <Section header="Notes">
-        <TextField
-          placeholder={emptySpace}
-          textEditor
-          text={useRxRefBinding(
-            voucherRef,
-            "notes",
-            Option.getOrElse(() => ""),
-            flow(Option.some, Option.filter(String.isNonEmpty)),
-          )}
-        />
-      </Section>
-    </VStack>
-  )
-}
-
-function NumberField(
-  props: TextInputProps & {
-    readonly text: Binding<string>
-  },
-) {
-  const [value, setValueString] = React.useState(props.text.value)
-  useEffect(
-    function () {
-      props.text.setValue(value)
-    },
-    [props, value],
-  )
-  const theme = useUIColor()
-  return (
-    <TextInput
-      placeholder={props.placeholder}
-      placeholderTextColor={theme.secondaryLabel}
-      keyboardType="decimal-pad"
-      textAlign="right"
-      style={{ fontSize: 17 }}
-      value={value}
-      onChangeText={e => setValueString(e)}
-    />
-  )
-}
-
-function Label(props: {
-  readonly text: string
-  readonly children: React.ReactNode
-}) {
-  return (
-    <HStack>
-      <Text alignment="leading" style={{ width: 80 }}>
-        {props.text}
-      </Text>
-      <View style={{ flex: 1 }}>{props.children}</View>
-    </HStack>
-  )
-}
-
-function DatePickerWrap(props: {
-  readonly date: Binding<Option.Option<Date>>
-  readonly placeholder?: string
-}) {
-  const [show, setShow] = React.useState(false)
-  return (
-    <View style={{ flex: 1, flexDirection: "row" }}>
-      <Pressable style={{ flex: 1 }} onPress={() => setShow(true)}>
-        <Text
-          alignment="trailing"
-          foregroundColor={Option.match(props.date.value, {
-            onNone: () => "secondaryLabel",
-            onSome: () => undefined,
-          })}
-        >
-          {Option.match(props.date.value, {
-            onNone: () => props.placeholder ?? "Never",
-            onSome: date => date.toLocaleDateString(),
-          })}
-        </Text>
-      </Pressable>
-      {Option.match(props.date.value, {
-        onNone: () => null,
-        onSome: () => (
-          <>
-            <View style={{ width: 10 }} />
-            <TouchableOpacity
-              onPress={() => props.date.setValue(Option.none())}
-            >
-              <Ionicons name="close-circle" size={18} />
-            </TouchableOpacity>
-          </>
-        ),
-      })}
-      {show && (
-        <DatePicker
-          modal
-          mode="date"
-          open={show}
-          date={Option.getOrElse(props.date.value, () => new Date())}
-          onConfirm={date => {
-            setShow(false)
-            return props.date.setValue(Option.some(date))
-          }}
-          onCancel={() => setShow(false)}
-        />
-      )}
-    </View>
+  return Platform.OS === "ios" ? (
+    <IosForm voucherRef={voucherRef} />
+  ) : (
+    <AndroidForm voucherRef={voucherRef} />
   )
 }
