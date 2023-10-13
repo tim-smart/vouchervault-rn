@@ -1,7 +1,7 @@
 PODS:
   - boost (1.76.0)
   - DoubleConversion (1.1.6)
-  - EXApplication (5.3.0):
+  - EXApplication (5.3.1):
     - ExpoModulesCore
   - EXConstants (14.4.2):
     - ExpoModulesCore
@@ -9,11 +9,11 @@ PODS:
     - ExpoModulesCore
   - EXFont (11.4.0):
     - ExpoModulesCore
-  - Expo (49.0.11):
+  - Expo (49.0.13):
     - ExpoModulesCore
   - ExpoBlur (12.4.1):
     - ExpoModulesCore
-  - ExpoHead (0.0.14):
+  - ExpoHead (0.0.15):
     - ExpoModulesCore
   - ExpoKeepAwake (12.3.0):
     - ExpoModulesCore
@@ -345,7 +345,7 @@ PODS:
     - glog
   - react-native-date-picker (4.3.3):
     - React-Core
-  - react-native-quick-sqlite (8.0.4):
+  - react-native-quick-sqlite (8.0.5):
     - React
     - React-callinvoker
     - React-Core
@@ -467,8 +467,6 @@ PODS:
     - React-jsi (= 0.72.5)
     - React-logger (= 0.72.5)
     - React-perflogger (= 0.72.5)
-  - RNDateTimePicker (7.2.0):
-    - React-Core
   - RNFlashList (1.4.3):
     - React-Core
   - RNGestureHandler (2.12.1):
@@ -535,7 +533,6 @@ DEPENDENCIES:
   - React-runtimescheduler (from `../../../node_modules/react-native/ReactCommon/react/renderer/runtimescheduler`)
   - React-utils (from `../../../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCommon/turbomodule/core (from `../../../node_modules/react-native/ReactCommon`)
-  - "RNDateTimePicker (from `../../../node_modules/@react-native-community/datetimepicker`)"
   - "RNFlashList (from `../../../node_modules/@shopify/flash-list`)"
   - RNGestureHandler (from `../../../node_modules/react-native-gesture-handler`)
   - RNScreens (from `../../../node_modules/react-native-screens`)
@@ -655,8 +652,6 @@ EXTERNAL SOURCES:
     :path: "../../../node_modules/react-native/ReactCommon/react/utils"
   ReactCommon:
     :path: "../../../node_modules/react-native/ReactCommon"
-  RNDateTimePicker:
-    :path: "../../../node_modules/@react-native-community/datetimepicker"
   RNFlashList:
     :path: "../../../node_modules/@shopify/flash-list"
   RNGestureHandler:
@@ -669,13 +664,13 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   boost: 57d2868c099736d80fcd648bf211b4431e51a558
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
-  EXApplication: 02655a251434d564bb0e73291f5a490c74b5b76f
+  EXApplication: 042aa2e3f05258a16962ea1a9914bf288db9c9a1
   EXConstants: ce5bbea779da8031ac818c36bea41b10e14d04e1
   EXFileSystem: 2b826a3bf1071a4b80a8457e97124783d1ac860e
   EXFont: 738c44c390953ebcbab075a4848bfbef025fd9ee
-  Expo: 8a2d2c235bcbe4f41774562a0635bd74c174858c
+  Expo: e7d2116b947e2e6fdeb09ee4f2754f819426d1b6
   ExpoBlur: a2c90bdfa4ff9f459cdb0f83191bddf020e3e2db
-  ExpoHead: 82eda8e633ca25980d8ec46ba793a3df4e2b16fc
+  ExpoHead: 249669d2a6c1d55846bb15d7f22d0d294aaf060f
   ExpoKeepAwake: be4cbd52d9b177cde0fd66daa1913afa3161fc1d
   ExpoModulesCore: 51cb2e7ab4c8da14be3f40b66d54c1781002e99d
   ExpoSystemUI: fa4854e3226e87f86d3383570264c6e4e90bc782
@@ -702,7 +697,7 @@ SPEC CHECKSUMS:
   React-jsinspector: aef73cbd43b70675f572214d10fa438c89bf11ba
   React-logger: 2e4aee3e11b3ec4fa6cfd8004610bbb3b8d6cca4
   react-native-date-picker: 1d61c76315098a6ad4c643a356f005916c7d4875
-  react-native-quick-sqlite: 9daf75c171e3d0bad2011f95cb501303e4a28363
+  react-native-quick-sqlite: 28be360af451ddd14fac8cccf5ffcac8ae9ca28a
   react-native-safe-area-context: 36cc67648134e89465663b8172336a19eeda493d
   react-native-sfsymbols: bd3a0d3eab185e80b571bae60753dcf5a0d57967
   React-NativeModulesApple: 797bc6078d566eef3fb3f74127e6e1d2e945a15f
@@ -722,7 +717,6 @@ SPEC CHECKSUMS:
   React-runtimescheduler: cc32add98c45c5df18436a6a52a7e1f6edec102c
   React-utils: 7a9918a1ffdd39aba67835d42386f592ea3f8e76
   ReactCommon: 91ece8350ebb3dd2be9cef662abd78b6948233c0
-  RNDateTimePicker: 3942382593f104af226ad9c56e16166960c7ae30
   RNFlashList: ade81b4e928ebd585dd492014d40fb8d0e848aab
   RNGestureHandler: c0d04458598fcb26052494ae23dda8f8f5162b13
   RNScreens: 50ffe2fa2342eabb2d0afbe19f7c1af286bc7fb3

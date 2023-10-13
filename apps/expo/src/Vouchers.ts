@@ -8,6 +8,8 @@ import { sqlRuntime } from "~/Sql"
 
 const runtime = Rx.runtime(VouchersLive, {
   runtime: sqlRuntime,
+  autoDispose: true,
+  idleTTL: "30 seconds",
 })
 
 const { all, clear } = Effect.serviceConstants(Vouchers)

@@ -110,10 +110,13 @@ const make = Effect.gen(function* (_) {
       Effect.withSpan("Vouchers.find", { attributes: { id } }),
     )
 
-  const clear = Effect.all([
-    sql`DELETE FROM vouchers`,
-    sql`DELETE FROM sqlite_sequence WHERE name = 'vouchers'`,
-  ]).pipe(Effect.withSpan("Vouchers.clear"))
+  const clear = Effect.all(
+    [
+      sql`DELETE FROM vouchers`,
+      sql`DELETE FROM sqlite_sequence WHERE name = 'vouchers'`,
+    ],
+    { discard: true },
+  ).pipe(Effect.withSpan("Vouchers.clear"))
 
   return { all, find, create, update, remove, clear } as const
 })

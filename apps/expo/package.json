@@ -15,8 +15,8 @@
     "ios": "expo run:ios"
   },
   "dependencies": {
-    "@effect-rx/rx-react": "^0.7.2",
-    "@effect/schema": "^0.43.0",
+    "@effect-rx/rx-react": "^0.7.3",
+    "@effect/schema": "^0.43.1",
     "@expo/browser-polyfill": "^1.0.0",
     "@expo/metro-config": "^0.10.7",
     "@expo/vector-icons": "^13.0.0",
@@ -34,7 +34,7 @@
     "expo-blur": "~12.4.1",
     "expo-constants": "~14.4.2",
     "expo-linking": "~5.0.2",
-    "expo-router": "2.0.8",
+    "expo-router": "2.0.9",
     "expo-status-bar": "~1.6.0",
     "expo-system-ui": "~2.4.0",
     "nativewind": "^2.0.11",
@@ -50,20 +50,20 @@
     "swiftui-react-native": "^5.0.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.0",
-    "@babel/preset-env": "^7.22.20",
-    "@babel/runtime": "^7.23.1",
+    "@babel/core": "^7.23.2",
+    "@babel/preset-env": "^7.23.2",
+    "@babel/runtime": "^7.23.2",
     "@expo/config-plugins": "^7.2.5",
     "@types/babel__core": "^7.20.2",
-    "@types/react": "^18.2.24",
+    "@types/react": "^18.2.28",
     "@vv/eslint-config": "^0.2.0",
     "@vv/prettier-config": "^0.1.0",
     "@vv/tailwind-config": "^0.1.0",
     "@vv/tsconfig": "^0.1.0",
     "babel-plugin-import-glob": "^2.0.0",
-    "eslint": "^8.50.0",
+    "eslint": "^8.51.0",
     "prettier": "^3.0.3",
-    "tailwindcss": "3.3.3",
+    "tailwindcss": "3.3.2",
     "typescript": "^5.2.2"
   },
   "eslintConfig": {

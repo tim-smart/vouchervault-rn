@@ -9,10 +9,7 @@ export const unstable_settings = {
 }
 
 export default function TabsLayout() {
-  return Platform.select({
-    ios: <IosLayout />,
-    default: <AndroidLayout />,
-  })
+  return Platform.OS === "ios" ? <IosLayout /> : <AndroidLayout />
 }
 
 function IosLayout() {
