@@ -3,7 +3,6 @@ import { Button, Platform, ScrollView, View } from "react-native"
 import type { SearchParams } from "expo-router"
 import { router, Stack, useLocalSearchParams, useNavigation } from "expo-router"
 import {
-  Result,
   RxRef,
   useRxRef,
   useRxSetPromise,
@@ -115,7 +114,7 @@ function SaveButton({
   )
 
   const valid = useRxRef(voucherRef.map(validateCreate))
-  const waiting = useRxValue(rx, Result.isWaiting)
+  const waiting = useRxValue(rx, _ => _.waiting)
   const disabled = waiting || !valid
 
   return <Button title={title} onPress={() => save()} disabled={disabled} />

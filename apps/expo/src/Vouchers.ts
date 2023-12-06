@@ -1,65 +1,49 @@
-import { Result, Rx } from "@effect-rx/rx-react"
-import { Effect } from "effect"
+import { Rx } from "@effect-rx/rx-react"
+import { Effect, Layer } from "effect"
 
 import type { VoucherCreate, VoucherId, VoucherUpdate } from "@vv/vouchers"
 import { Vouchers, VouchersLive } from "@vv/vouchers"
 
-import { sqlRuntime } from "~/Sql"
+import { SqlLive } from "~/Sql"
 
-const runtime = Rx.runtime(VouchersLive, {
-  runtime: sqlRuntime,
-  autoDispose: true,
-  idleTTL: "30 seconds",
-})
+const runtime = Rx.make(VouchersLive.pipe(Layer.provide(SqlLive))).pipe(
+  Rx.keepAlive,
+)
 
 const { all, clear } = Effect.serviceConstants(Vouchers)
 const { create, find, update, remove } = Effect.serviceFunctions(Vouchers)
 
-export const vouchersRx = Rx.effect(() => all, { runtime }).pipe(
-  Rx.map(Result.noWaiting),
-  Rx.refreshable,
-)
+export const vouchersRx = runtime.rx(all).pipe(Rx.refreshable)
 
 export const voucherByIdRx = Rx.family((id: VoucherId) =>
-  Rx.effect(() => find(id), { runtime }).pipe(
-    Rx.map(Result.noWaiting),
-    Rx.refreshable,
+  runtime.rx(find(id)).pipe(Rx.refreshable),
+)
+
+export const createVoucherRx = runtime.fn((_: VoucherCreate, get) =>
+  create(_).pipe(
+    Effect.zipLeft(get.refresh(vouchersRx)),
+    Effect.tapErrorCause(Effect.logError),
   ),
 )
 
-export const createVoucherRx = Rx.effectFn(
-  (_: VoucherCreate, get) =>
-    create(_).pipe(
-      Effect.zipLeft(get.refresh(vouchersRx)),
-      Effect.tapErrorCause(Effect.logError),
-    ),
-  { runtime },
+export const updateVoucherRx = runtime.fn((_: VoucherUpdate, get) =>
+  update(_).pipe(
+    Effect.zipLeft(get.refresh(voucherByIdRx(_.id))),
+    Effect.zipLeft(get.refresh(vouchersRx)),
+    Effect.tapErrorCause(Effect.logError),
+  ),
 )
 
-export const updateVoucherRx = Rx.effectFn(
-  (_: VoucherUpdate, get) =>
-    update(_).pipe(
-      Effect.zipLeft(get.refresh(voucherByIdRx(_.id))),
-      Effect.zipLeft(get.refresh(vouchersRx)),
-      Effect.tapErrorCause(Effect.logError),
-    ),
-  { runtime },
+export const removeVoucherRx = runtime.fn((_: VoucherId, get) =>
+  remove(_).pipe(
+    Effect.zipLeft(get.refresh(vouchersRx)),
+    Effect.tapErrorCause(Effect.logError),
+  ),
 )
 
-export const removeVoucherRx = Rx.effectFn(
-  (_: VoucherId, get) =>
-    remove(_).pipe(
-      Effect.zipLeft(get.refresh(vouchersRx)),
-      Effect.tapErrorCause(Effect.logError),
-    ),
-  { runtime },
-)
-
-export const clearVouchersRx = Rx.effectFn(
-  (_: void, get) =>
-    clear.pipe(
-      Effect.zipLeft(get.refresh(vouchersRx)),
-      Effect.tapErrorCause(Effect.logError),
-    ),
-  { runtime },
+export const clearVouchersRx = runtime.fn((_: void, get) =>
+  clear.pipe(
+    Effect.zipLeft(get.refresh(vouchersRx)),
+    Effect.tapErrorCause(Effect.logError),
+  ),
 )

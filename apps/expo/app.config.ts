@@ -17,7 +17,7 @@ const defineConfig = (): ExpoConfig => ({
     supportsTablet: true,
   },
   android: {
-    package: "co.timsmart.vouchervault",
+    package: "co.timsmart.vouchervault2",
     adaptiveIcon: {
       foregroundImage: "./assets/icon.png",
       backgroundColor: "#1F104A",

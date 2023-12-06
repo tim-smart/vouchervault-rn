@@ -23,6 +23,7 @@ export class Setting<A> extends Data.Class<{
 }
 
 const make = Effect.gen(function* (_) {
+  yield* _(Effect.log("building Settings"))
   const sql = yield* _(Sql.tag)
 
   const get = <A>(setting: Setting<A>) =>
